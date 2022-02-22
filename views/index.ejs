@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client site filtering with Node.js and MongoDB</title>
+</head>
+<body>
+    <h1> Simple client site query-filtering </h1>
+    <h2> for Node.js and MongoDB </h2>
+
+
+    <button id="firstBooleanButton">Find documents in which firstBoolean is true</button><br><br>
+    <button id="secondBooleanButton">Find documents in which secondBoolean is true</button><br>
+
+    <% for(const document of documents) {%>
+        <p><b><%= document.title %></b></p>
+    <% if (document.firstBoolean) {%>
+        <p>first is true</p>
+    <% } else { %>
+        <p>first is NOT true</p> <% } %>
+    <% if (document.secondBoolean) {%>
+        <p>second is true</p>
+    <% } else { %>
+        <p>second is NOT true</p> <% } %>
+        <br><% } %>
+
+  
+<script>
+    document.getElementById("firstBooleanButton").addEventListener("click", firstBooleanFunction);
+    function firstBooleanFunction() {
+        if ('URLSearchParams' in window) {
+        let searchParams = new URLSearchParams(window.location.search);
+        if(!(searchParams.has('firstBoolean'))){
+        searchParams.set("firstBoolean", true);
+        window.location.search = searchParams.toString();
+        }
+        else{
+        searchParams.delete('firstBoolean');
+        window.location.search = searchParams.toString();
+        }}}
+            
+    document.getElementById("secondBooleanButton").addEventListener("click", secondBooleanFunction);
+    function secondBooleanFunction() {
+        if ('URLSearchParams' in window) {
+        let searchParams = new URLSearchParams(window.location.search);
+        if(!(searchParams.has('secondBoolean'))){
+        searchParams.set("secondBoolean", true);
+        window.location.search = searchParams.toString();
+        }
+        else{
+        searchParams.delete('secondBoolean');
+        window.location.search = searchParams.toString();
+        }}}
+</script>
+      
+</body>
+</html>
